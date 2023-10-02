@@ -1,0 +1,11 @@
+.label {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 430px;
+  padding: 5px;
+}
