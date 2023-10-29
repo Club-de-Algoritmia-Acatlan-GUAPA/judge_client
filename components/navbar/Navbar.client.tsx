@@ -6,14 +6,13 @@ import { useStore } from '@utils/store'
 
 export default function Navbar() {
   const [themeEmoji, setThemeEmoji] = useState<string>(' ')
-  const setTheme = useStore((state) => state.setTheme)
+  const setTheme = useStore((state: any) => state.setTheme)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       let f = document.documentElement.getAttribute('data-theme')
       let emoji = f === 'dark' ? '🌞' : '🌛'
-      if (f) {
-        setTheme(f)
-      }
+      localStorage.setItem('theme', f ?? 'light')
+      setTheme(f)
       setThemeEmoji(emoji)
     }
   }, [])
@@ -22,9 +21,7 @@ export default function Navbar() {
     let newTheme = f === 'dark' ? 'light' : 'dark'
     let emoji = f === 'dark' ? '🌛' : '🌞'
     localStorage.setItem('theme', newTheme)
-    if (f) {
-      setTheme(newTheme)
-    }
+    setTheme(newTheme)
     setThemeEmoji(emoji)
     document.documentElement.setAttribute('data-theme', newTheme)
   }
@@ -48,7 +45,7 @@ export default function Navbar() {
         <Ty type='h3' color='primary'>
           Log Out
         </Ty>
-        <Ty clickable href="/login" type='h3' color='primary'>
+        <Ty clickable href='/login' type='h3' color='primary'>
           Log In
         </Ty>
         <Ty type='h2' color='primary' onClick={changeTheme} clickable>

@@ -1,9 +1,8 @@
-import { useState } from 'react'
 export const SelectionBar = ({
   elements,
   backgroundColor,
   onSelection,
-  selected
+  selected,
 }: {
   elements: string[]
   backgroundColor: string
@@ -18,14 +17,9 @@ export const SelectionBar = ({
     gap: '40px',
     borderBottom: '1px solid var(--border-color)',
   } as React.CSSProperties
-  //const [_selected, setSelected] = useState<string>(selected)
-  console.log('Seleccionad' ,selected)
-  //console.log('Selected' ,_selected)
   function handleSelection(el: string) {
-    //setSelected(el)
     onSelection(el)
   }
-  console.log(selected)
   return (
     <>
       <ul style={ulStyle}>
@@ -59,7 +53,6 @@ export const BarItem = ({
     color: selected ? 'var(--blue-primary)' : 'var(--font-primary-color)',
     cursor: 'pointer',
   } as React.CSSProperties
-  console.log(selected, element)
   return (
     <>
       <li style={liStyle} key={element}>

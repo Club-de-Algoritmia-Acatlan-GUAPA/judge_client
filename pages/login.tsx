@@ -51,7 +51,9 @@ const Page = () => {
   })
   const [loading, setLoading] = useState(false)
 
-  const [errorMessage, setErrorMessage] = useState<z.ZodError | undefined>()
+  const [errorMessage, setErrorMessage] = useState<
+    z.ZodError | string[] | undefined
+  >()
 
   function handlePassword(e: ChangeEvent<HTMLInputElement>) {
     dispatch({
@@ -81,10 +83,9 @@ const Page = () => {
       ;(async () => {
         let data = await postForm('/login', state)
         if (data.ok) {
-          console.log(data.ok)
-	  window.location.replace("/problems")
+          window.location.replace('/problems')
         } else {
-          console.log(data.err)
+          setErrorMessage(['Something went wrong'])
         }
       })()
       setLoading(false)
@@ -97,12 +98,19 @@ const Page = () => {
           label='User or Email'
           id='identifier'
           onChange={handleUsername}
-          text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-tempor incididunt ut labore et dolore magna aliqua. '
+          text='Type your email or username.'
         />
 
-        <InputBlock label='Password' id='password' onChange={handlePassword} />
-        <Button color='green'> Submit </Button>
+        <InputBlock
+          type='password'
+          label='Password'
+          id='password'
+          onChange={handlePassword}
+        />
+        <Button enable={!loading} color='green'>
+          {' '}
+          {loading ? 'Loading' : 'Log In'}{' '}
+        </Button>
 
         {errorMessage && <ErrorBlocks messages={errorMessage} />}
       </Form>

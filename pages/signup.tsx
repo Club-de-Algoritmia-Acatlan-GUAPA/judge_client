@@ -52,19 +52,6 @@ type ReducerAction =
     }
   | { type: FormRegisterAction.SET_USERNAME; name: string }
 
-function reducer(state: User, action: ReducerAction): User {
-  switch (action.type) {
-    case FormRegisterAction.SET_EMAIL:
-      return { ...state, email: action.email }
-    case FormRegisterAction.SET_PASSWORD:
-      return { ...state, password: action.password }
-    case FormRegisterAction.SET_PASSWORD_CONFIRMATION:
-      return { ...state, passwordConfirmation: action.passwordConfirmation }
-    case FormRegisterAction.SET_USERNAME:
-      return { ...state, name: action.name }
-  }
-}
-
 const Page = () => {
   const [state, dispatch] = useReducer(reducer, {
     name: '',
@@ -72,9 +59,23 @@ const Page = () => {
     password: '',
     passwordConfirmation: '',
   })
-  const [errorMessage, setErrorMessage] = useState<z.ZodError | undefined>()
+  const [errorMessage, setErrorMessage] = useState<
+    z.ZodError | string[] | undefined
+  >()
   const [loading, setLoading] = useState(false)
 
+  function reducer(state: User, action: ReducerAction): User {
+    switch (action.type) {
+      case FormRegisterAction.SET_EMAIL:
+        return { ...state, email: action.email }
+      case FormRegisterAction.SET_PASSWORD:
+        return { ...state, password: action.password }
+      case FormRegisterAction.SET_PASSWORD_CONFIRMATION:
+        return { ...state, passwordConfirmation: action.passwordConfirmation }
+      case FormRegisterAction.SET_USERNAME:
+        return { ...state, name: action.name }
+    }
+  }
   function handlePassword(e: ChangeEvent<HTMLInputElement>) {
     dispatch({
       type: FormRegisterAction.SET_PASSWORD,
@@ -118,7 +119,6 @@ const Page = () => {
       Object.entries(state).forEach((elem) =>
         urlencoded.append(elem[0], elem[1]),
       )
-      console.log(urlencoded)
 
       setErrorMessage(undefined)
       setLoading(true)
@@ -127,7 +127,7 @@ const Page = () => {
         if (data.ok) {
           window.location.replace('/login')
         } else {
-          console.log(data.err)
+          setErrorMessage(['Something went wrong'])
         }
       })()
       setLoading(false)
@@ -156,7 +156,9 @@ const Page = () => {
           type='password'
           onChange={handlePasswordConfirmation}
         />
-        <Button enable={loading} color='green'>Crear</Button>
+        <Button enable={!loading} color='green'>
+          {loading ? 'Loading' : 'Crear'}
+        </Button>
         {errorMessage && <ErrorBlocks messages={errorMessage} />}
       </Form>
     </>

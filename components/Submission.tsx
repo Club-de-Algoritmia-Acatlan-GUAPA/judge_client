@@ -14,11 +14,9 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
       if (res && Object.keys(res).length === 0) {
         setData(dummy3)
       }
-      console.log(res)
 
       if (res) {
         setData(res)
-        console.log(res)
         return
       }
       setData(dummy3)
@@ -67,7 +65,7 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
           </tr>
         </thead>
         <tbody>
-          {data &&
+          {data ? (
             data.map((elem) => {
               //let prepare_output = new elem.prepare_output.
               let prepare_output =
@@ -80,8 +78,6 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
               ) : (
                 ''
               )
-              console.log(elem.submitted_at.toString())
-              console.log(prepare_output)
               return (
                 <>
                   <tr key={elem.submission_id}>
@@ -144,7 +140,10 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
                   </tr>
                 </>
               )
-            })}
+            })
+          ) : (
+            <> Loading </>
+          )}
         </tbody>
       </table>
     </>

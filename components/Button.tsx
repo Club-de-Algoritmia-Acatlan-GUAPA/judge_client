@@ -16,6 +16,7 @@ const Button: React.FC<{
     width: '126px',
     padding: '0 10px 0 10px',
     height: '29px',
+    cursor: 'pointer',
   }
   return (
     <>
@@ -23,17 +24,17 @@ const Button: React.FC<{
         ref={refButton}
         onMouseDown={(_: any) => {
           if (refButton.current && enable) {
-            refButton.current.style.background = 'var(--blue-primary-faded)'
+            refButton.current.style.background = `var(--${color}-primary-faded)`
           }
         }}
         onMouseUp={(_: any) => {
           if (refButton.current) {
-            refButton.current.style.background = 'var(--blue-primary)'
+            refButton.current.style.background = `var(--${color}-primary)`
           }
         }}
         onMouseOut={(_: any) => {
           if (refButton.current) {
-            refButton.current.style.background = 'var(--blue-primary)'
+            refButton.current.style.background = `var(--${color}-primary)`
           }
         }}
         style={enableStyle}

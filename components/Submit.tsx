@@ -1,5 +1,4 @@
 import { SubmitButton } from '@components/Button'
-import DropFiles from '@components/DropFiles'
 import Editor from '@components/editors/Editor'
 import React, { useState } from 'react'
 import { postSubmit } from '@utils/fetchers'
@@ -8,15 +7,18 @@ import { SubmitForm } from '@bindings/SubmitForm'
 const Submit = ({
   problem_id,
   contest_id,
+  code,
   onSubmit,
+  setCode,
 }: {
   problem_id: number
   contest_id?: number
+  code: string
   onSubmit: (e: any) => void
+  setCode: (e: any) => void
 }) => {
   let arr = ['Selecciona el lenguaje', 'python3', 'java', 'cpp11', 'cpp17']
   const [mode, setMode] = useState<string>('')
-  const [code, setCode] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   function onChangeEditor(e: string) {
     setCode(e)
@@ -45,13 +47,14 @@ const Submit = ({
       problem_id,
       contest_id: contest_id ? contest_id : '',
     } as SubmitForm
-    console.log({ data })
     ;(async () => {
       setLoading(true)
-
       let res = await postSubmit(data)
-      console.log(res)
-      onSubmit(e)
+      if (res.ok) {
+        onSubmit(e)
+      } else {
+        // Log message error
+      }
       setLoading(false)
     })()
   }
@@ -82,7 +85,7 @@ const Submit = ({
       >
         O puedes copiar tu código
       </div>
-      <Editor mode={mode} onChange={onChangeEditor} />
+      <Editor defaultValue={code} mode={mode} onChange={onChangeEditor} />
     </>
   )
 }

@@ -61,7 +61,7 @@ export async function fetchProblem(id: string) {
     )
     console.log(req)
     if (req.redirected) {
-      window.location.replace(req.url)
+      //window.location.replace(req.url)
       return {
         ok: null,
         err: 'redirected',
@@ -78,7 +78,7 @@ export async function fetchProblem(id: string) {
       err: null,
     }
   } catch (e) {
-    window.location.replace('/404')
+    //window.location.replace('/404')
     return { ok: null, err: e }
   }
 }

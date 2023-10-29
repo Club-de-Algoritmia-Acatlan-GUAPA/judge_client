@@ -22,7 +22,7 @@ const Page = () => {
           404 :(
         </Ty>
         <Ty type='h2' color='primary'>
-          Aqui no hay nada que ver...
+          Aqui no hay nada que ver..
         </Ty>
       </div>
     </>

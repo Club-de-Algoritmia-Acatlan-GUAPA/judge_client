@@ -8,21 +8,18 @@ const DropFiles = () => {
     display: 'flex',
     justifyContent: 'center',
   } as React.CSSProperties
-  function handleFile(e:any) {
-          console.log(e.target)
+  function handleFile(e: any) {
   }
   return (
     <>
-        <input onChange={handleFile} type='file' id='inputCode' />
+      <input onChange={handleFile} type='file' id='inputCode' />
       <div style={boxStyle}>
-
         <Image
           width={33.65}
           height={37.39}
           src='/import_doc.svg'
           alt='import file logo'
         />
-
       </div>
     </>
   )
