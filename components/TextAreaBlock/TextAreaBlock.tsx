@@ -1,40 +1,30 @@
 import Ty from '@components/typography/typography'
-import { Input } from '@mui/base/Input'
 import { ChangeEvent, useReducer, useState } from 'react'
 import { z } from 'zod'
 import style from '@styles/Input.module.css'
-const InputBlock: React.FC<{
+const TextAreaBlock: React.FC<{
   label: string | React.ReactNode
   placeholder?: string
   text?: string | React.ReactNode
   id: string
-  type?: string
   onValidation?: <T>(
     a: any,
   ) => { success: true; data: T } | { success: false; error: z.ZodError }
   onChange?: (e: any) => any
-}> = ({
-  label,
-  placeholder,
-  text,
-  id,
-  type = 'text',
-  onValidation,
-  onChange,
-}) => {
-  const [errorMessage, setErrorMessage] = useState<z.ZodError | undefined>()
-  function handleOnSubmit(e: ChangeEvent<HTMLInputElement>) {
+}> = ({ label, placeholder, text, id, onValidation, onChange }) => {
+  const [errorMessage, setErrorMessage] = useState<z.ZodError | null>()
+  function handleOnSubmit(e: ChangeEvent<HTMLTextAreaElement>) {
     if (!onValidation) return
 
     let res = onValidation(e.target.value)
     if (!res.success) {
       setErrorMessage(res.error)
     } else {
-      setErrorMessage(undefined)
+      setErrorMessage(null)
     }
   }
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setErrorMessage(undefined)
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    setErrorMessage(null)
     onChange && onChange(e)
   }
   return (
@@ -46,14 +36,14 @@ const InputBlock: React.FC<{
             {label}
           </Ty>
         </label>
-        <input
+        <textarea
           className={style.input}
           placeholder={placeholder}
           id={id}
-          type={type}
-          min="1"
           onChange={handleChange}
           onSubmit={handleOnSubmit}
+          rows={5}
+          cols={5}
         />
         {text && (
           <label className={style.text}>
@@ -67,4 +57,4 @@ const InputBlock: React.FC<{
     </>
   )
 }
-export default InputBlock
+export default TextAreaBlock

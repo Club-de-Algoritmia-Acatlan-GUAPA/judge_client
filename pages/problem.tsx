@@ -21,14 +21,15 @@ const Page = () => {
   let pp = {
     problem_id: 0,
     body : {
-    metadata: {
-      time_limit: 1,
-      memory_limit: 250,
-    },
+    information: "",
     input: ca,
     problem: cb,
     output: cc,
-  }} as ProblemGetResponse
+    identifier: "",
+    name: "Sum of Two Values",
+    note: "",
+    },
+  } as ProblemGetResponse
   return <Problem problem={pp} />
 }
 

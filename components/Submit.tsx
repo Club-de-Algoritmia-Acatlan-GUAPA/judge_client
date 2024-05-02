@@ -20,6 +20,12 @@ const Submit = ({
   let arr = ['Selecciona el lenguaje', 'python3', 'java', 'cpp11', 'cpp17']
   const [mode, setMode] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [file, setFile] = useState<File | null>(null)
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      setFile(e.target.files[0])
+    }
+  }
   function onChangeEditor(e: string) {
     setCode(e)
   }
@@ -43,7 +49,7 @@ const Submit = ({
   function _onSubmit(e: any) {
     let data = {
       language: mode,
-      code,
+      code : file ? file : code,
       problem_id,
       contest_id: contest_id ? contest_id : '',
     } as SubmitForm
@@ -61,26 +67,29 @@ const Submit = ({
   return (
     <>
       <div style={barStyle}>
-        <select
-          className='selectLanguage'
-          style={selectStyle}
-          onChange={onChangeMode}
-        >
-          {arr.map((elem) => (
-            <option style={{ cursor: 'pointer' }} key={elem} value={elem}>
-              {elem}
-            </option>
-          ))}
-        </select>
+        <div>
+          <select
+            className='selectLanguage'
+            style={selectStyle}
+            onChange={onChangeMode}
+          >
+            {arr.map((elem) => (
+              <option style={{ cursor: 'pointer' }} key={elem} value={elem}>
+                {elem}
+              </option>
+            ))}
+          </select>
+        </div>
         <SubmitButton loading={loading} onClick={_onSubmit} />
       </div>
       {/*<DropFiles />*/}
+        <input type='file' onChange={handleFileChange} />
       <div
         style={{
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          color: 'var(--font-primary-color',
+          color: 'var(--font-primary-color)',
         }}
       >
         O puedes copiar tu código

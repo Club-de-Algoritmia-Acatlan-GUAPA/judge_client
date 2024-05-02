@@ -53,8 +53,10 @@ const Problem = ({ problem }: { problem: ProblemGetResponse }) => {
           <Title text={body.name} />
         </div>
         <Metadata
-          timeLimit={body.metadata.time_limit}
-          memoryLimit={body.metadata.memory_limit}
+          //timeLimit={body.time_limit}
+          timeLimit={1}
+          //memoryLimit={body.metadata.memory_limit}
+          memoryLimit={2}
         />
         <SelectionBar
           elements={barValues}

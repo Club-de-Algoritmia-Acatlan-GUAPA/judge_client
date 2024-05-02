@@ -2,13 +2,16 @@ import style from '@styles/Form.module.css'
 import Ty from '@components/typography/typography'
 
 const Form: React.FC<{
-  label: string
+  label?: string
   children: React.ReactNode
   onSubmit: (e: any) => void
-}> = ({ label, children, onSubmit }) => {
+  width?: string
+}> = ({ label, children, onSubmit, width = '430px' }) => {
   return (
     <>
-      <form className={style.form} onSubmit={onSubmit}>
+      <form style={{ width }} className={style.form} onSubmit={onSubmit}>
+       {label &&  (
+      <>
         <label>
           {' '}
           <Ty type='h2' color='primary'>
@@ -17,6 +20,8 @@ const Form: React.FC<{
           </Ty>{' '}
         </label>
         <hr />
+      </>
+      ) }
         {children}
       </form>
     </>

@@ -1,6 +1,8 @@
 import { fetchSubmissions } from '@utils/fetchers'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { GetSubmissionsJson } from '@bindings/GetSubmissionsJson'
+import Modal from '@components/Modal'
+import SubmissionModal from './SubmissionModal'
 const Submission = ({ problem_id }: { problem_id: number }) => {
   const [data, setData] = useState<GetSubmissionsJson[]>([])
   useEffect(() => {
@@ -22,6 +24,7 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
       setData(dummy3)
     })()
   }, [])
+  let utf8decoder = new TextDecoder()
   const styleBox = {
     display: 'flex',
     background: 'transparent',
@@ -36,7 +39,7 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
     flexDirection: 'column',
     color: 'var(--font-primary-color)',
   } as React.CSSProperties
-  let utf8decoder = new TextDecoder()
+
   const thStyle = {
     fontSize: '18px',
     fontWeight: '700',
@@ -90,7 +93,10 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
                       }}
                     >
                       {' '}
-                      <a>{elem.submission_id} </a>
+                      <SubmissionModal
+                        id={elem.submission_id}
+                        problemId={problem_id.toString()}
+                      />
                     </td>
                     <td
                       style={{
@@ -104,7 +110,7 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
                     <td style={{ fontWeight: 700 }}> {elem.language} </td>
                     <td> {date} </td>
                   </tr>
-                  <tr>
+                  {/*<tr>
                     <td colSpan={4}>
                       <pre style={{ overflow: 'scroll' }}>
                         {' '}
@@ -137,7 +143,7 @@ const Submission = ({ problem_id }: { problem_id: number }) => {
                           })}
                       </div>
                     </td>
-                  </tr>
+                  </tr>*/}
                 </>
               )
             })

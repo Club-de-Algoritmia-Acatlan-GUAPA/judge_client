@@ -6,6 +6,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Navbar from '@components/navbar/Navbar.client'
 
+import '@styles/globals.scss'
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
   isIndex?: string

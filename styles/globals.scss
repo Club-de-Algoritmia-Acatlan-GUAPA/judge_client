@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&family=Lato&display=swap');
-//@tailwind base;
-//@tailwind components;
-//@tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import './variables.scss';
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -46,12 +47,11 @@ html {
 
   --focus: #549bf5;
   --white: #ffffff;
-  --green-primary: rgb(52, 125, 57, 1);
+  --green-primary: #347d39;
   --green-secondary: #46874c;
 
   --blue-primary: #0076ed;
   --blue-primary-faded: rgba(0, 118, 237, 0.5);
-  --green-primary-faded:rgb(52, 125, 57, 0.5);
 
   --blue-secondary: #549bf5;
 

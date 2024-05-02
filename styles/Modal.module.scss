@@ -1,0 +1,27 @@
+.modal {
+  //max-width: 20rem;
+  min-width: 30vw;
+  padding: 2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  //position: relative;
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background: var(--primary-color);
+}
+
+.modal::backdrop {
+  background: hsl(0 0% 0% / 50%);
+}
+
+.modal-close-btn {
+  font-size: 0.75em;
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+}
